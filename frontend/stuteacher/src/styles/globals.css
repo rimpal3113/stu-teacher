@@ -1,0 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Replace text-foreground with standard classes like: */
+/* text-gray-900, text-slate-900, text-black, etc. */
