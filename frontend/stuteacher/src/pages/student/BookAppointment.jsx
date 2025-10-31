@@ -41,7 +41,7 @@ console.log("teacherId from URL:", teacherId); // ✅ This should log a valid ID
       setError("");
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`http://localhost:5000/api/teachers/profile/${teacherId}`, {
+        const res = await fetch(`https://stbackend-pied.vercel.app/api/teachers/profile/${teacherId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -70,7 +70,7 @@ const handleSubmit = async (e) => {
 
 try {
   
-  const res = await fetch("http://localhost:5000/api/appointments", {
+  const res = await fetch("https://stbackend-pied.vercel.app/api/appointments", {
   method: "POST",
   headers: {
      "Content-Type": "application/json",

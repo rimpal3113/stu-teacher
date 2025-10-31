@@ -9,7 +9,7 @@ export default function AdminAppointments() {
  useEffect(() => {
   const fetchAppointments = async () => {
     const token = localStorage.getItem("token");
-    const res = await fetch("http://localhost:5000/api/admin/appointments", {
+    const res = await fetch("https://stbackend-pied.vercel.app/api/admin/appointments", {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();

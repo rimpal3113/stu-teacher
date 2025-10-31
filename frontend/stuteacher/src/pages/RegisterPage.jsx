@@ -2,14 +2,14 @@
 
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
-import { Button } from "../components/ui/Button"
+import { Button } from "../components/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../components/ui/Card"
+} from "../components/ui/card"
 import { Input } from "../components/ui/Input"
 import { Label } from "../components/ui/Label"
 import {
@@ -48,7 +48,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/auth/register", {
+      const response = await fetch("https://stbackend-pied.vercel.app/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

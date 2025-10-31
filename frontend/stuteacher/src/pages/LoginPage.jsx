@@ -4,10 +4,10 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { Button } from "../components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
-import { Input } from "../components/ui/input"
+import { Input } from "../components/ui/Input"
 import { Label } from "../components/ui/Label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/Select"
-import { Checkbox } from "../components/ui/checkbox"
+
 import { BookOpen, Eye, EyeOff } from "lucide-react"
 
 export default function LoginPage() {
@@ -33,7 +33,7 @@ export default function LoginPage() {
   }
 
   try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch("https://stbackend-pied.vercel.app/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, role }),

@@ -44,7 +44,7 @@ export default function StudentDashboard() {
         const token = localStorage.getItem("token")
 
         // Fetch appointments + messages
-        const res = await fetch("http://localhost:5000/api/student/appointments", {
+        const res = await fetch("https://stbackend-pied.vercel.app/api/student/appointments", {
           headers: { Authorization: `Bearer ${token}` },
         })
 
@@ -57,7 +57,7 @@ export default function StudentDashboard() {
         }
 
         // Fetch teachers
-        const resTeachers = await fetch("http://localhost:5000/api/teachers", {
+        const resTeachers = await fetch("https://stbackend-pied.vercel.app/api/teachers", {
           headers: { Authorization: `Bearer ${token}` },
         })
         const teachersData = await resTeachers.json()
