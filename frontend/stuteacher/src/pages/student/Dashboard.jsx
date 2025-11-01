@@ -44,7 +44,7 @@ export default function StudentDashboard() {
         const token = localStorage.getItem("token")
 
         // Fetch appointments + messages
-        const res = await fetch("https://stu-teacher-241z.vercel.app/api/student/appointments", {
+        const res = await fetch("https://stu-teacher-241z.vercel.app/api/appointments/student", {
           headers: { Authorization: `Bearer ${token}` },
         })
 
