@@ -5,11 +5,14 @@ import Message from "../models/Message.js";
 export const getAllTeachers = async (req, res) => {
   try {
     const teachers = await Teacher.find();
+    console.log("📦 Teachers found:", teachers.length);
     res.json(teachers);
   } catch (error) {
-    res.status(500).json({ message: "Server error" });
+    console.error("❌ getAllTeachers Error:", error.message);
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 
 // Approve an appointment
