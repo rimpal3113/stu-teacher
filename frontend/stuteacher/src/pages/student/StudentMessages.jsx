@@ -23,7 +23,7 @@ export default function StudentMessages() {
     const fetchMessages = async () => {
       const token = localStorage.getItem("token");
 
-      const res = await fetch(`https://stbackend-pied.vercel.app/api/student/messages/${teacherId}`, {
+      const res = await fetch(`https://stu-teacher-241z.vercel.app/api/student/messages/${teacherId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,7 +45,7 @@ export default function StudentMessages() {
 
     if (!messageText.trim()) return;
 
-    const res = await fetch("https://stbackend-pied.vercel.app/student/send-message", {
+    const res = await fetch("https://stu-teacher-241z.vercel.app/student/send-message", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
-import { Button } from "../../components/ui/Button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/Card"
+import { Button } from "../../components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
 import { Input } from "../../components/ui/Input"
 import { Label } from "../../components/ui/Label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select"
@@ -49,7 +49,7 @@ export default function AddTeacher() {
     console.log("Submitting:", formData)
     try {
       const token = localStorage.getItem("token"); // or wherever you store your JWT
-      const response = await fetch("https://stbackend-pied.vercel.app/api/admin/teachers", {
+      const response = await fetch("https://stu-teacher-241z.vercel.app/api/admin/teachers", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

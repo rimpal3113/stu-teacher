@@ -32,7 +32,7 @@ export default function TeacherDashboard() {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const res = await fetch("https://stu-teacher-orpin.vercel.app/api/teacher/appointments", {
+        const res = await fetch("https://stu-teacher-241z.vercel.app/api/teacher/appointments", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -54,7 +54,7 @@ export default function TeacherDashboard() {
   }, [token]);
 
   const handleApprove = async (id) => {
-    const res = await fetch(`https://stbackend-pied.vercel.app/api/teacher/appointments/${id}/approve`, {
+    const res = await fetch(`https://stu-teacher-241z.vercel.app/api/teacher/appointments/${id}/approve`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -72,7 +72,7 @@ export default function TeacherDashboard() {
   };
 
   const handleReject = async (id) => {
-    const res = await fetch(`https://stbackend-pied.vercel.app/api/teacher/appointments/${id}/reject`, {
+    const res = await fetch(`https://stu-teacher-241z.vercel.app/api/teacher/appointments/${id}/reject`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

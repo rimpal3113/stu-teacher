@@ -15,7 +15,7 @@ export default function TeacherAppointments() {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const res = await fetch("https://stbackend-pied.vercel.app/api/teachers/appointments", {
+        const res = await fetch("https://stu-teacher-241z.vercel.app/api/teachers/appointments", {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,

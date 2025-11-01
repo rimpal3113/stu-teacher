@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "../../components/ui/Card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "../../components/ui/card";
 import { Input } from "../../components/ui/Input";
-import { Button } from "../../components/ui/Button";
+import { Button } from "../../components/ui/button";
 import { ArrowLeft } from "lucide-react";
 
 export default function EditTeacher() {
@@ -18,7 +18,7 @@ export default function EditTeacher() {
       setLoading(true);
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`https://stbackend-pied.vercel.app/api/admin/teachers/${teacherId}`, {
+        const res = await fetch(`https://stu-teacher-241z.vercel.app/api/admin/teachers/${teacherId}`, {
   headers: {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export default function EditTeacher() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`https://stbackend-pied.vercel.app/api/admin/teachers/${teacherId}`, {
+      const res = await fetch(`https://stu-teacher-241z.vercel.app/api/admin/teachers/${teacherId}`, {
   method: "PUT",
   headers: {
     Authorization: `Bearer ${token}`,

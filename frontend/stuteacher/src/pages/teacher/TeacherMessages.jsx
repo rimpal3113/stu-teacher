@@ -13,7 +13,7 @@ export default function TeacherMessages() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await fetch(`https://stbackend-pied.vercel.app/api/messages/teacher/${studentId}`, {
+        const res = await fetch(`https://stu-teacher-241z.vercel.app/api/messages/teacher/${studentId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

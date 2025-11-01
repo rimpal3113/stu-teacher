@@ -48,7 +48,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const response = await fetch("https://stbackend-pied.vercel.app/api/auth/register", {
+      const response = await fetch("https://stu-teacher-241z.vercel.app/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

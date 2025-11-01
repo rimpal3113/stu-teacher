@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Button } from "../../components/ui/Button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/Card"
-import { Input } from "../../components/ui/input"
+import { Button } from "../../components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
+import { Input } from "../../components/ui/Input"
 import { Badge } from "../../components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/Avtar"
 import {
@@ -44,7 +44,7 @@ export default function StudentDashboard() {
         const token = localStorage.getItem("token")
 
         // Fetch appointments + messages
-        const res = await fetch("https://stbackend-pied.vercel.app/api/student/appointments", {
+        const res = await fetch("https://stu-teacher-241z.vercel.app/api/student/appointments", {
           headers: { Authorization: `Bearer ${token}` },
         })
 
@@ -57,7 +57,7 @@ export default function StudentDashboard() {
         }
 
         // Fetch teachers
-        const resTeachers = await fetch("https://stbackend-pied.vercel.app/api/teachers", {
+        const resTeachers = await fetch("https://stu-teacher-241z.vercel.app/api/teachers", {
           headers: { Authorization: `Bearer ${token}` },
         })
         const teachersData = await resTeachers.json()

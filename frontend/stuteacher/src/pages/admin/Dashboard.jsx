@@ -73,7 +73,7 @@ export default function AdminDashboard() {
       }
 
       // 🔍 Fetch Teachers
-      const resTeachers = await fetch("https://stbackend-pied.vercel.app/api/admin/teachers", {
+      const resTeachers = await fetch("https://stu-teacher-241z.vercel.app/api/admin/teachers", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -94,7 +94,7 @@ export default function AdminDashboard() {
       }
 
       // 🔍 Fetch Pending Registrations
-    const resPending = await fetch("https://stbackend-pied.vercel.app/api/admin/pending-registrations", {
+    const resPending = await fetch("https://stu-teacher-241z.vercel.app/api/admin/pending-registrations", {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -104,7 +104,7 @@ export default function AdminDashboard() {
         if (resPending.ok) setPendingRegistrations(pendingData);
 
       // 🔍 Fetch System Stats
-      const resStats = await fetch("https://stbackend-pied.vercel.app/api/admin/system-stats", {
+      const resStats = await fetch("https://stu-teacher-241z.vercel.app/api/admin/system-stats", {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -134,7 +134,7 @@ export default function AdminDashboard() {
   const handleApproveRegistration = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`https://stbackend-pied.vercel.app/api/admin/pending-registrations/${id}/approve`, {
+      const res = await fetch(`https://stu-teacher-241z.vercel.app/api/admin/pending-registrations/${id}/approve`, {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
       });
@@ -148,7 +148,7 @@ export default function AdminDashboard() {
  const handleRejectRegistration = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`https://stbackend-pied.vercel.app/api/admin/pending-registrations/${id}/reject`, {
+      const res = await fetch(`https://stu-teacher-241z.vercel.app/api/admin/pending-registrations/${id}/reject`, {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
       });
@@ -162,7 +162,7 @@ export default function AdminDashboard() {
  const handleDeleteTeacher = async (teacherId) => {
   try {
     const token = localStorage.getItem("token")
-   const res = await fetch(`https://stbackend-pied.vercel.app/api/admin/teachers/${teacherId}`, {
+   const res = await fetch(`https://stu-teacher-241z.vercel.app/api/admin/teachers/${teacherId}`, {
   method: "DELETE",
   headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
 })
@@ -182,7 +182,7 @@ export default function AdminDashboard() {
 const handleUpdateTeacher = async (teacherId, updatedData) => {
   try {
     const token = localStorage.getItem("token")
-    const res = await fetch(`https://stbackend-pied.vercel.app/api/admin/teachers/${teacherId}`, {
+    const res = await fetch(`https://stu-teacher-241z.vercel.app/api/admin/teachers/${teacherId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,

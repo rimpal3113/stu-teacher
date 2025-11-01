@@ -1,7 +1,7 @@
 // src/pages/admin/AdminAppointments.jsx
 import React, { useEffect, useState } from "react";
 import { Calendar } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card";
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
 
 export default function AdminAppointments() {
   const [appointments, setAppointments] = useState([]);
@@ -9,7 +9,7 @@ export default function AdminAppointments() {
  useEffect(() => {
   const fetchAppointments = async () => {
     const token = localStorage.getItem("token");
-    const res = await fetch("https://stbackend-pied.vercel.app/api/admin/appointments", {
+    const res = await fetch("https://stu-teacher-241z.vercel.app/api/admin/appointments", {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();

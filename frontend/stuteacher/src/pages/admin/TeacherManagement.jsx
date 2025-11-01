@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { Button } from "../../components/ui/Button"
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card"
+import { Button } from "../../components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
 import { Input } from "../../components/ui/Input"
-import { Badge } from "../../components/ui/Badge"
+import { Badge } from "../../components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/Avtar"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select"
 import {
@@ -39,7 +39,7 @@ export default function TeacherManagement() {
     setLoading(true)
     try {
       const token = localStorage.getItem("token")
-      const res = await fetch("https://stbackend-pied.vercel.app/api/teachers", {
+      const res = await fetch("https://stu-teacher-241z.vercel.app/api/teachers", {
         headers: {
           "Authorization": `Bearer ${token}`,
           "Content-Type": "application/json"
@@ -67,7 +67,7 @@ export default function TeacherManagement() {
   const handleDeleteTeacher = async (teacherId) => {
     if (window.confirm("Are you sure you want to delete this teacher?")) {
       try {
-       const res = await fetch(`https://stbackend-pied.vercel.app/api/admin/teachers/${teacherId}`, {
+       const res = await fetch(`https://stu-teacher-241z.vercel.app/api/admin/teachers/${teacherId}`, {
   method: "DELETE",
   headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
 })
@@ -82,7 +82,7 @@ export default function TeacherManagement() {
 
   const handleStatusChange = async (teacherId, newStatus) => {
     try {
-      const res = await fetch(`https://stbackend-pied.vercel.app/api/admin/teachers/${teacherId}/status`, {
+      const res = await fetch(`https://stu-teacher-241z.vercel.app/api/admin/teachers/${teacherId}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus }),
