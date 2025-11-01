@@ -33,36 +33,46 @@ export default function LoginPage() {
   }
 
   try {
-      const response = await fetch("https://stu-teacher-241z.vercel.app/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, role }),
-      });
+    const response = await fetch("https://stu-teacher-241z.vercel.app/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password, role }),
+    });
 
-      const data = await response.json();
-      console.log("Login response:", data);
+    const data = await response.json();
+    console.log("🟢 Login response:", data);
 
-      if (!response.ok) {
-        alert(data.message || "Login failed");
-        return;
-      }
+    if (!response.ok) {
+      alert(data.message || "Login failed");
+      return;
+    }
 
-      // ✅ Store token & user
+    // ✅ Store token & user
+    if (data.token) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
-
-      // ✅ Redirect based on role
-      const userRole = data.user.role.toLowerCase();
-      if (userRole === "student") navigate("/student/dashboard");
-      else if (userRole === "teacher") navigate("/teacher/dashboard");
-      else if (userRole === "admin") navigate("/admin/dashboard");
-      else alert("Unknown user role");
-
-    } catch (err) {
-      console.error("Login error:", err);
-      alert("An error occurred. Please try again.");
+      console.log("✅ Token stored:", data.token);
+      console.log("✅ User stored:", data.user);
+    } else {
+      console.warn("⚠️ No token received from backend!");
     }
-  };
+
+    // ✅ Verify token is in localStorage
+    const savedToken = localStorage.getItem("token");
+    console.log("📦 Token in localStorage:", savedToken);
+
+    // ✅ Redirect based on role
+    const userRole = data.user.role.toLowerCase();
+    if (userRole === "student") navigate("/student/dashboard");
+    else if (userRole === "teacher") navigate("/teacher/dashboard");
+    else if (userRole === "admin") navigate("/admin/dashboard");
+    else alert("Unknown user role");
+
+  } catch (err) {
+    console.error("❌ Login error:", err);
+    alert("An error occurred. Please try again.");
+  }
+};
 
 
   const handleChange = (e) => {
