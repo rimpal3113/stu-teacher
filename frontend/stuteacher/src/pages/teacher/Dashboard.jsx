@@ -32,7 +32,7 @@ export default function TeacherDashboard() {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const res = await fetch("https://stbackend-pied.vercel.app/api/teacher/appointments", {
+        const res = await fetch("https://stu-teacher-orpin.vercel.app/api/teacher/appointments", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

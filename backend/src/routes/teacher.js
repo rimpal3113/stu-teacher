@@ -18,7 +18,7 @@ router.patch("/appointments/:id/approve", verifyToken, approveAppointment);
 router.patch("/appointments/:id/reject", verifyToken, rejectAppointment);
 
 // ✅ General teacher routes after
-router.get("/", verifyToken, getAllTeachers);
+router.get("/", getAllTeachers);
  // ✅ Now only matches /profile/123
 router.get('/profile/:id', getTeacherById); // ✅ specific, avoids conflicts
 
