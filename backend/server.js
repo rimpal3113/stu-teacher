@@ -12,13 +12,13 @@ import authRoutes from "./src/routes/auth.js";
 dotenv.config();
 const app = express();
 
-// ✅ FIXED CORS CONFIG FOR VERCEL
-const allowedOrigins = [
-  "https://stu-teacher-kmq2.vercel.app", // your frontend on Vercel
-  "http://localhost:5173"                // optional (for local dev)
-];
-
+// ✅ MANUAL CORS FIX (WORKS ON VERCEL)
 app.use((req, res, next) => {
+  const allowedOrigins = [
+    "https://stu-teacher-kmq2.vercel.app", // frontend deployed
+    "http://localhost:5173"                // optional local dev
+  ];
+
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
@@ -34,9 +34,9 @@ app.use((req, res, next) => {
   );
   res.setHeader("Access-Control-Allow-Credentials", "true");
 
-  // ✅ Handle preflight (important for browser requests)
+  // ✅ stop preflight error
   if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
+    return res.status(200).end();
   }
 
   next();
@@ -55,16 +55,16 @@ const connectDB = async () => {
 };
 await connectDB();
 
-// ✅ Routes
+// ✅ API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/teachers", teacherRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/appointments", appointmentRoutes);
 
-// ✅ Health Check
+// ✅ Root route
 app.get("/", (req, res) => {
-  res.json({ message: "Backend is Active  ✅" });
+  res.json({ message: "Backend running on Vercel ✅" });
 });
 
 // ✅ Export for Vercel
