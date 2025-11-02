@@ -37,11 +37,14 @@ export const login = async (req, res) => {
   try {
     const { email, password, role } = req.body;
 
-    const normalizedEmail = email.trim().toLowerCase(); // ✅ normalize email
+    if (!email || !password || !role) {
+      return res.status(400).json({ message: "Please provide email, password, and role" });
+    }
 
+    const normalizedEmail = email.trim().toLowerCase();
     let user;
 
-    // 🔍 Fetch user from the right collection
+    // 🔍 Find user based on role
     if (role === "teacher") {
       user = await Teacher.findOne({ email: normalizedEmail });
     } else if (role === "student") {
@@ -52,38 +55,44 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: "Invalid role provided" });
     }
 
+    // ❌ If user not found
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // ❌ If password missing
     if (!user.password) {
       return res.status(400).json({ message: "Password not set for this user" });
     }
 
+    // 🔐 Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
+    // 🎟️ Create JWT token
     const token = jwt.sign(
-      { _id: user._id, role: user.role },
+      { id: user._id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
+    // ✅ Send response
     res.status(200).json({
+      success: true,
       message: "Login successful",
       token,
       user: {
         _id: user._id,
         email: user.email,
         role: user.role,
-        firstName: user.firstName || null,
-        lastName: user.lastName || null,
+        firstName: user.firstName || "",
+        lastName: user.lastName || "",
       },
     });
   } catch (err) {
     console.error("Login error:", err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 };
