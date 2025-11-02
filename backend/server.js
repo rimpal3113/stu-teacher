@@ -18,7 +18,13 @@ const app = express();
 // Middleware
 app.use(
   cors({
-     origin: "https://stu-teacher-orpin.vercel.app",
+   app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://stu-teacher-kmq2.vercel.app"],
+    credentials: true,
+  })
+);
+
     credentials: true,
   })
 );
