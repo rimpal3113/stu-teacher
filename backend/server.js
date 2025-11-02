@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import cors from "cors";
+import corsConfig from "../backend/src/middleware/corsConfig.js";
 
 import authRoutes from "../backend/src/routes/auth.js";
 import adminRoutes from "../backend/src/routes/admin.js";
@@ -14,20 +14,9 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// ✅ CORS Configuration (important!)
-app.use(
-  cors({
-    origin: [
-      "https://stu-teacher-kmq2.vercel.app", // your frontend
-      "http://localhost:5173",               // local dev (optional)
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-  })
-);
-
-// ✅ Handle preflight requests explicitly
-app.options("*", cors());
+// ✅ Use global CORS middleware for local & Vercel testing
+app.use(corsConfig);
+app.options("*", corsConfig); // preflight support
 
 // ✅ Mount routes
 app.use("/api/auth", authRoutes);

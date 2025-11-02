@@ -13,6 +13,7 @@ import Teacher from '../models/Teacher.js';
 import Appointment from '../models/Appointment.js'; // ✅ Missing import
 
 const router = express.Router();
+router.use(corsConfig); 
 
 // ✅ Protect all admin routes
 router.use(authenticate);
