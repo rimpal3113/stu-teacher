@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
-// ✅ Import routes
 import adminRoutes from "./src/routes/admin.js";
 import teacherRoutes from "./src/routes/teacher.js";
 import studentRoutes from "./src/routes/student.js";
@@ -13,30 +12,20 @@ import authRoutes from "./src/routes/auth.js";
 dotenv.config();
 const app = express();
 
-// ✅ CORS setup for your frontend hosted on Vercel
+// ✅ CORS for your frontend hosted on Vercel
 app.use(
   cors({
-    origin: "https://stu-teacher-kmq2.vercel.app", // your frontend domain
+    origin: "https://stu-teacher-kmq2.vercel.app", // frontend vercel domain
     credentials: true,
   })
 );
-
-// ✅ Middleware
 app.use(express.json());
 
-// ✅ MongoDB connection
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("✅ MongoDB connected successfully");
-  } catch (err) {
-    console.error("❌ MongoDB connection failed:", err.message);
-  }
-};
-await connectDB();
+// ✅ Connect MongoDB
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ MongoDB connection failed:", err));
 
 // ✅ API Routes
 app.use("/api/auth", authRoutes);
@@ -45,13 +34,10 @@ app.use("/api/teachers", teacherRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/appointments", appointmentRoutes);
 
-// ✅ Default test route
+// ✅ Default route
 app.get("/", (req, res) => {
-  res.json({
-    success: true,
-    message: "🎯 Student-Teacher Backend Running Successfully!",
-  });
+  res.json({ message: "Backend is running ✅" });
 });
 
-// ✅ Export for Vercel
+// ✅ Export app (Vercel requires this)
 export default app;
