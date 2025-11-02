@@ -1,8 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import corsConfig from "../backend/src/middleware/corsConfig.js";
+import cors from "cors";
 
+// ✅ Correct imports (adjust based on your structure)
 import authRoutes from "../backend/src/routes/auth.js";
 import adminRoutes from "../backend/src/routes/admin.js";
 import teacherRoutes from "../backend/src/routes/teacher.js";
@@ -14,9 +15,16 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// ✅ Use global CORS middleware for local & Vercel testing
-app.use(corsConfig);
-app.options("*", corsConfig); // preflight support
+// ✅ CORS setup
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // your local frontend
+      "https://stu-teacher-kmq2.vercel.app" // your deployed frontend
+    ],
+    credentials: true,
+  })
+);
 
 // ✅ Mount routes
 app.use("/api/auth", authRoutes);
@@ -27,16 +35,17 @@ app.use("/api/appointments", appointmentRoutes);
 
 // ✅ Root test route
 app.get("/", (req, res) => {
-  res.send("✅ Server running successfully on Vercel!");
+  res.send("Server running successfully 🚀");
 });
 
 // ✅ MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
+// ✅ Local server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 export default app;

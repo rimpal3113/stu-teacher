@@ -28,17 +28,16 @@ export default function StudentDashboard() {
   const navigate = useNavigate()
 
   // ✅ Load user from localStorage
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user")
-    if (storedUser) {
-      setUser(JSON.parse(storedUser))
-    } else {
-      navigate("/login")
-    }
-  }, [navigate])
-
-  // ✅ Fetch appointments, messages & teachers
  useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+  if (storedUser) {
+    setUser(JSON.parse(storedUser));
+  } else {
+    navigate("/login");
+  }
+}, [navigate]);
+
+useEffect(() => {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -50,14 +49,16 @@ export default function StudentDashboard() {
       }
 
       // ✅ Fetch appointments + messages
-      const res = await fetch("https://teacherforstudent-beryl.vercel.app/api/students/appointments", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        credentials: "include", // ensures cross-origin authentication works on Vercel
-      });
+      const res = await fetch(
+        "https://teacherforstudent-beryl.vercel.app/api/students/appointments",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       console.log("📡 Status:", res.status);
       const data = await res.json();
@@ -70,68 +71,35 @@ export default function StudentDashboard() {
         console.error("❌ Failed to fetch appointments:", data.message);
       }
 
-      
-
-        // Fetch teachers
-        const resTeachers = await fetch("https://teacherforstudent-beryl.vercel.app/api/teachers", {
+      // ✅ Fetch teachers
+      const resTeachers = await fetch(
+        "https://teacherforstudent-beryl.vercel.app/api/teachers",
+        {
           headers: { Authorization: `Bearer ${token}` },
-        })
-        const teachersData = await resTeachers.json()
-
-        if (resTeachers.ok) {
-          setTeachers(teachersData)
         }
-      } catch (err) {
-        console.error("❌ Error fetching dashboard data:", err)
+      );
+
+      const teachersData = await resTeachers.json();
+
+      if (resTeachers.ok) {
+        setTeachers(teachersData);
+      } else {
+        console.error("❌ Failed to fetch teachers:", teachersData.message);
       }
+    } catch (err) {
+      console.error("🔥 Error fetching dashboard data:", err);
     }
+  };
 
-    if (user) fetchData()
-  }, [user])
+  if (user) fetchData();
+}, [user]);
 
-  if (!user) return null
-
-  // ✅ Helper for status icon & color
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case "confirmed":
-        return <CheckCircle className="h-4 w-4 text-green-500" />
-      case "pending":
-        return <AlertCircle className="h-4 w-4 text-yellow-500" />
-      case "cancelled":
-        return <XCircle className="h-4 w-4 text-red-500" />
-      default:
-        return <Clock className="h-4 w-4 text-gray-500" />
-    }
-  }
-
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "confirmed":
-        return "bg-green-100 text-green-800"
-      case "pending":
-        return "bg-yellow-100 text-yellow-800"
-      case "cancelled":
-        return "bg-red-100 text-red-800"
-      default:
-        return "bg-gray-100 text-gray-800"
-    }
-  }
-
-  // ✅ Filter teachers by name, department, subject
-  const filteredTeachers = teachers.filter(
-    (teacher) =>
-      (`${teacher.firstName} ${teacher.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (teacher.department || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (teacher.subject || "").toLowerCase().includes(searchTerm.toLowerCase()))
-  )
-
-  // ✅ Logout
-  const handleLogout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("user")
-    navigate("/login")
-  }
+// ✅ Logout function
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  navigate("/login");
+};
 
   return (
     <div className="min-h-screen bg-gray-50">
