@@ -49,7 +49,7 @@ export default function AddTeacher() {
     console.log("Submitting:", formData)
     try {
       const token = localStorage.getItem("token"); // or wherever you store your JWT
-      const response = await fetch("https://stu-teacher-241z.vercel.app/api/admin/teachers", {
+      const response = await fetch("https://teacherforstudent-beryl.vercel.app/api/admin/teachers", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

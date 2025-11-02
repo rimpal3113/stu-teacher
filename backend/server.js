@@ -20,7 +20,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173", // your local frontend
-      "https://mytestu.vercel.app" // your deployed frontend
+      "https://stu-teacher-kmq2.vercel.app" // your deployed frontend
     ],
     credentials: true,
   })

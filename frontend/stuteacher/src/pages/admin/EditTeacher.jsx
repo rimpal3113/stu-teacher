@@ -18,7 +18,7 @@ export default function EditTeacher() {
       setLoading(true);
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`https://stu-teacher-241z.vercel.app/api/admin/teachers/${teacherId}`, {
+        const res = await fetch(`https://teacherforstudent-beryl.vercel.app/api/admin/teachers/${teacherId}`, {
   headers: {
     Authorization: `Bearer ${token}`,
     "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export default function EditTeacher() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`https://stu-teacher-241z.vercel.app/api/admin/teachers/${teacherId}`, {
+      const res = await fetch(`https://teacherforstudent-beryl.vercel.app/api/admin/teachers/${teacherId}`, {
   method: "PUT",
   headers: {
     Authorization: `Bearer ${token}`,

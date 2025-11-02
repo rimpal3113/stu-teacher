@@ -50,7 +50,7 @@ export default function StudentDashboard() {
       }
 
       // ✅ Fetch appointments + messages
-      const res = await fetch("https://stu-teacher-241z.vercel.app/api/students/appointments", {
+      const res = await fetch("https://teacherforstudent-beryl.vercel.app/api/students/appointments", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export default function StudentDashboard() {
       
 
         // Fetch teachers
-        const resTeachers = await fetch("https://stu-teacher-241z.vercel.app/api/teachers", {
+        const resTeachers = await fetch("https://teacherforstudent-beryl.vercel.app/api/teachers", {
           headers: { Authorization: `Bearer ${token}` },
         })
         const teachersData = await resTeachers.json()
