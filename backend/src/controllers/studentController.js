@@ -107,27 +107,24 @@ export const bookAppointment = async (req, res) => {
 // controllers/studentController.js
 export const getStudentAppointments = async (req, res) => {
   try {
-    const studentId = req.user._id;
+    const studentId = req.user.id;
 
+    // Fetch student's appointments
     const appointments = await Appointment.find({ student: studentId })
-      .populate("teacher", "firstName lastName avatar subject") // Ensure `teacher` field is populated
-      .sort({ date: -1 });
+      .populate("teacher", "firstName lastName subject avatar")
+      .sort({ date: 1 });
 
-    const formatted = appointments.map((appt) => ({
-      _id: appt._id,
-      teacher: `${appt.teacher.firstName} ${appt.teacher.lastName}`,
-      teacherAvatar: appt.teacher.avatar || null,
-      subject: appt.subject,
-      date: appt.date,
-      timeSlot: appt.timeSlot,
-      priority: appt.priority,
-      message: appt.message,
-      status: appt.status,
-    }));
+    // Fetch messages (optional)
+    const messages = await Message.find({ student: studentId })
+      .populate("teacher", "firstName lastName avatar")
+      .sort({ createdAt: -1 });
 
-    res.status(200).json({ appointments: formatted });
+    res.status(200).json({
+      appointments,
+      messages,
+    });
   } catch (error) {
-    console.error("❌ Error fetching appointments:", error);
+    console.error("Error fetching appointments:", error.message);
     res.status(500).json({ message: "Server error" });
   }
 };
