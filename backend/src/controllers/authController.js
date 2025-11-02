@@ -1,12 +1,10 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import Student from '../models/Student.js';
-import Teacher from '../models/Teacher.js';
-import Admin from "../models/Admin.js"; // ✅ Add this
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import Student from "../models/Student.js";
+import Teacher from "../models/Teacher.js";
+import Admin from "../models/Admin.js";
 
-// (optional) import generateToken if you use it
-
-
+// 🧩 Register
 export const register = async (req, res) => {
   const { firstName, lastName, email, phone, password, role, department, subject, bio } = req.body;
 
@@ -20,7 +18,16 @@ export const register = async (req, res) => {
     }
 
     if (role === "teacher") {
-      const newTeacher = new Teacher({ firstName, lastName, email, phone, password: hashedPassword, department, subject, bio });
+      const newTeacher = new Teacher({
+        firstName,
+        lastName,
+        email,
+        phone,
+        password: hashedPassword,
+        department,
+        subject,
+        bio,
+      });
       await newTeacher.save();
       return res.status(201).json({ message: "Teacher registered successfully" });
     }
@@ -31,8 +38,8 @@ export const register = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-// Login a user
 
+// 🧩 Login
 export const login = async (req, res) => {
   try {
     const { email, password, role } = req.body;
@@ -45,40 +52,24 @@ export const login = async (req, res) => {
     let user;
 
     // 🔍 Find user based on role
-    if (role === "teacher") {
-      user = await Teacher.findOne({ email: normalizedEmail });
-    } else if (role === "student") {
-      user = await Student.findOne({ email: normalizedEmail });
-    } else if (role === "admin") {
-      user = await Admin.findOne({ email: normalizedEmail });
-    } else {
-      return res.status(400).json({ message: "Invalid role provided" });
-    }
+    if (role === "teacher") user = await Teacher.findOne({ email: normalizedEmail });
+    else if (role === "student") user = await Student.findOne({ email: normalizedEmail });
+    else if (role === "admin") user = await Admin.findOne({ email: normalizedEmail });
+    else return res.status(400).json({ message: "Invalid role provided" });
 
-    // ❌ If user not found
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    // ❌ If password missing
-    if (!user.password) {
-      return res.status(400).json({ message: "Password not set for this user" });
-    }
-
-    // 🔐 Compare passwords
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
-    }
+    if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
-    // 🎟️ Create JWT token
+    // ✅ JWT Token generation (this is the line you asked about)
     const token = jwt.sign(
       { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "1d" }
+      process.env.JWT_SECRET,  // <-- defined in .env
+      { expiresIn: "1d" }      // <-- valid for 1 day
     );
 
-    // ✅ Send response
+    // ✅ Send response to frontend
     res.status(200).json({
       success: true,
       message: "Login successful",
