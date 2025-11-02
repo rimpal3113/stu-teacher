@@ -1,9 +1,8 @@
-// server.js
 import express from "express";
 import mongoose from "mongoose";
-import cors from "cors";
 import dotenv from "dotenv";
 
+// Import routes
 import adminRoutes from "./src/routes/admin.js";
 import teacherRoutes from "./src/routes/teacher.js";
 import studentRoutes from "./src/routes/student.js";
@@ -11,39 +10,44 @@ import appointmentRoutes from "./src/routes/appointment.js";
 import authRoutes from "./src/routes/auth.js";
 
 dotenv.config();
-
 const app = express();
 
-// ✅ Proper CORS setup for frontend on Vercel
-const allowedOrigins = ["https://stu-teacher-kmq2.vercel.app"];
+// ✅ FIXED CORS CONFIG FOR VERCEL
+const allowedOrigins = [
+  "https://stu-teacher-kmq2.vercel.app", // your frontend on Vercel
+  "http://localhost:5173"                // optional (for local dev)
+];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
 
-// ✅ Handle preflight requests explicitly
-app.options("*", cors());
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  // ✅ Handle preflight (important for browser requests)
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
 
 app.use(express.json());
 
 // ✅ MongoDB connection
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("✅ MongoDB connected successfully");
   } catch (error) {
     console.error("❌ MongoDB connection failed:", error.message);
@@ -58,9 +62,10 @@ app.use("/api/teachers", teacherRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/appointments", appointmentRoutes);
 
-// ✅ Health check
+// ✅ Health Check
 app.get("/", (req, res) => {
-  res.json({ message: "Backend is active", status: "✅ running" });
+  res.json({ message: "Backend is Active  ✅" });
 });
 
+// ✅ Export for Vercel
 export default app;
