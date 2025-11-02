@@ -44,12 +44,13 @@ export default function StudentDashboard() {
         const token = localStorage.getItem("token")
 
         // Fetch appointments + messages
-        const res = await fetch("https://stu-teacher-241z.vercel.app/api/student/appointments", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+       const res = await fetch("https://stu-teacher-241z.vercel.app/api/student/appointments", {
+  headers: { Authorization: `Bearer ${token}` },
+})
 
-        const data = await res.json()
-        console.log("📌 Dashboard Response:", data)
+console.log("📡 Status:", res.status)
+const data = await res.json()
+console.log("📌 Dashboard Response:", data)
 
         if (res.ok) {
           setUpcomingAppointments(data.appointments || data.upcoming || [])
