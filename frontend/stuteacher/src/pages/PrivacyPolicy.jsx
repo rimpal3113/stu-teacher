@@ -46,7 +46,7 @@ export default function PrivacyPolicy() {
           <div className="bg-white rounded-lg shadow p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Our Commitment</h2>
             <p className="text-gray-700 mb-4">
-              EduConnect is committed to protecting your privacy. This policy explains what information we collect, how we use it, and your rights regarding your data.
+              EduConnect is comitted to protecting your privacy. This policy explains what information we collect, how we use it, and your rights regarding your data.
             </p>
             <ul className="space-y-4">
               <li>
