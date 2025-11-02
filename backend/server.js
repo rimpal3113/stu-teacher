@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 
-// Import routes
 import adminRoutes from "./src/routes/admin.js";
 import teacherRoutes from "./src/routes/teacher.js";
 import studentRoutes from "./src/routes/student.js";
@@ -15,17 +14,30 @@ dotenv.config();
 
 const app = express();
 
-// ✅ Middleware (CORS + JSON)
+// ✅ Proper CORS setup for frontend on Vercel
+const allowedOrigins = ["https://stu-teacher-kmq2.vercel.app"];
+
 app.use(
   cors({
-    origin: "https://stu-teacher-kmq2.vercel.app", // ✅ Your deployed frontend
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
+// ✅ Handle preflight requests explicitly
+app.options("*", cors());
+
 app.use(express.json());
 
-// ✅ Connect to MongoDB before routes
+// ✅ MongoDB connection
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
@@ -46,10 +58,9 @@ app.use("/api/teachers", teacherRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/appointments", appointmentRoutes);
 
-// ✅ Health check route
+// ✅ Health check
 app.get("/", (req, res) => {
   res.json({ message: "Backend is active", status: "✅ running" });
 });
 
-// ✅ Export for Vercel
 export default app;
