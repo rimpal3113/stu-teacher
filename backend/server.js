@@ -17,13 +17,8 @@ app.use(express.json());
 
 // ✅ CORS setup
 app.use(
-  cors({
-    origin: [
-      "http://localhost:5173", // your local frontend
-      "https://stu-teacher-kmq2.vercel.app" // your deployed frontend
-    ],
-    credentials: true,
-  })
+ app.use(cors({ origin: "https://stu-teacher-kmq2.vercel.app", credentials: true }));
+
 );
 
 // ✅ Mount routes
