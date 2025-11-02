@@ -15,16 +15,17 @@ dotenv.config();
 
 const app = express();
 
-// Middleware
+// ✅ Middleware (CORS + JSON)
 app.use(
   cors({
-   origin: ["http://localhost:5173", "https://stu-teacher-kmq2.vercel.app"],
+    origin: "https://stu-teacher-kmq2.vercel.app", // ✅ Your deployed frontend
     credentials: true,
   })
 );
+
 app.use(express.json());
 
-// ✅ Connect to MongoDB *before routes*
+// ✅ Connect to MongoDB before routes
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, {
@@ -39,13 +40,13 @@ const connectDB = async () => {
 await connectDB();
 
 // ✅ Routes
-app.use("/api/auth", authRoutes); 
+app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/teachers", teacherRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/appointments", appointmentRoutes);
 
-// ✅ Health check
+// ✅ Health check route
 app.get("/", (req, res) => {
   res.json({ message: "Backend is active", status: "✅ running" });
 });
