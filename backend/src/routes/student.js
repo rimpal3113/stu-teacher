@@ -5,7 +5,7 @@ import { registerStudent,   getStudentAppointments,sendMessageToTeacher, getStud
 const router = express.Router();
 
 router.post("/register", registerStudent);
-router.get("/appointments", authenticate, getStudentAppointments); 
+
 // ✅ Get student's appointments and messages
 router.get('/appointments', authenticate, async (req, res) => {
   try {
@@ -26,7 +26,7 @@ router.get('/appointments', authenticate, async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
-router.get("/appointments", authenticate, getStudentAppointments);
+
 
 // Send a new message to teacher
 router.post("/send-message", authenticate, sendMessageToTeacher);
