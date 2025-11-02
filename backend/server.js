@@ -4,11 +4,12 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 // Import routes
-import adminRoutes from "./src/routes/admin.js";
-import teacherRoutes from "./src/routes/teacher.js";
-import studentRoutes from "./src/routes/student.js";
-import appointmentRoutes from "./src/routes/appointment.js";
-import authRoutes from "./src/routes/auth.js";
+import authRoutes from "../backend/src/routes/auth.js";
+import adminRoutes from "../backend/src/routes/admin.js";
+import teacherRoutes from "../backend/src/routes/teacher.js";
+import studentRoutes from "../backend/src/routes/student.js";
+import appointmentRoutes from "../backend/src/routes/appointment.js";
+
 
 // Load environment variables
 dotenv.config();
