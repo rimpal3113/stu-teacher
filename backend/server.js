@@ -9,6 +9,7 @@ import adminRoutes from "./src/routes/admin.js";
 import teacherRoutes from "./src/routes/teacher.js";
 import studentRoutes from "./src/routes/student.js";
 import appointmentRoutes from "./src/routes/appointment.js";
+import authRoutes from "./src/routes/auth.js";
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ const connectDB = async () => {
 await connectDB();
 
 // ✅ Routes
+app.use("/api/auth", authRoutes); 
 app.use("/api/admin", adminRoutes);
 app.use("/api/teachers", teacherRoutes);
 app.use("/api/students", studentRoutes);
