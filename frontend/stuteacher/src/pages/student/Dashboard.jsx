@@ -38,24 +38,39 @@ export default function StudentDashboard() {
   }, [navigate])
 
   // ✅ Fetch appointments, messages & teachers
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem("token")
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
-        // Fetch appointments + messages
-       const res = await fetch("https://stu-teacher-241z.vercel.app/api/students/appointments", {
-  headers: { Authorization: `Bearer ${token}` },
-})
+      if (!token) {
+        console.error("❌ No token found in localStorage");
+        navigate("/login");
+        return;
+      }
 
-console.log("📡 Status:", res.status)
-const data = await res.json()
-console.log("📌 Dashboard Response:", data)
+      // ✅ Fetch appointments + messages
+      const res = await fetch("https://stu-teacher-241z.vercel.app/api/students/appointments", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include", // ensures cross-origin authentication works on Vercel
+      });
 
-        if (res.ok) {
-          setUpcomingAppointments(data.appointments || data.upcoming || [])
-          setRecentMessages(data.messages || [])
-        }
+      console.log("📡 Status:", res.status);
+      const data = await res.json();
+      console.log("📌 Dashboard Response:", data);
+
+      if (res.ok) {
+        setUpcomingAppointments(data.appointments || data.upcoming || []);
+        setRecentMessages(data.messages || []);
+      } else {
+        console.error("❌ Failed to fetch appointments:", data.message);
+      }
+
+      
 
         // Fetch teachers
         const resTeachers = await fetch("https://stu-teacher-241z.vercel.app/api/teachers", {
