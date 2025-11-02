@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Calendar, Loader2, LogOut } from "lucide-react";
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "../../components/ui/table";
-import { Card, CardContent } from "../../components/ui/card";
-import { Badge } from "../../components/ui/badge";
-import { Button } from "../../components/ui/button"; // ✅ make sure you have button component
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "../../components/ui/Table";
+import { Card, CardContent } from "../../components/ui/Card";
+import { Badge } from "../../components/ui/Badge";
+import { Button } from "../../components/ui/Button"; // ✅ make sure you have button component
 import { useAuth } from "../../contexts/AuthContext"; // ✅ your auth context
 
 export default function TeacherAppointments() {

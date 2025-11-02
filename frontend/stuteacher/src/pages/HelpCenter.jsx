@@ -1,6 +1,6 @@
 import { BookOpen, HelpCircle } from "lucide-react"
 import { Link } from "react-router-dom"
-import { Button } from "../components/ui/button"
+import { Button } from "../components/ui/Button"
 
 export default function HelpCenter() {
   return (

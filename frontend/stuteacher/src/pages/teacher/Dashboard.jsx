@@ -13,15 +13,15 @@ import {
   Plus,
 } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
-import { Button } from "../../components/ui/button";
-import { Badge } from "../../components/ui/badge";
+import { Button } from "../../components/ui/Button";
+import { Badge } from "../../components/ui/Badge";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "../../components/ui/card";
+} from "../../components/ui/Card";
 
 export default function TeacherDashboard() {
   const { user, token, logout } = useAuth();

@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { Button } from "../../components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
+import { Button } from "../../components/ui/Button"
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card"
 import { Input } from "../../components/ui/Input"
-import { Badge } from "../../components/ui/badge"
+import { Badge } from "../../components/ui/Badge"
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/Avtar"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../components/ui/Select"
 import {

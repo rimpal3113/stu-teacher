@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Button } from "../../components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
+import { Button } from "../../components/ui/Button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/Card"
 import { Input } from "../../components/ui/Input"
-import { Badge } from "../../components/ui/badge"
+import { Badge } from "../../components/ui/Badge"
 import { Avatar, AvatarFallback, AvatarImage } from "../../components/ui/Avtar"
 import {
   BookOpen,

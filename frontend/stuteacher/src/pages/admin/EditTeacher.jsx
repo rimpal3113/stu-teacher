@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "../../components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "../../components/ui/Card";
 import { Input } from "../../components/ui/Input";
-import { Button } from "../../components/ui/button";
+import { Button } from "../../components/ui/Button";
 import { ArrowLeft } from "lucide-react";
 
 export default function EditTeacher() {

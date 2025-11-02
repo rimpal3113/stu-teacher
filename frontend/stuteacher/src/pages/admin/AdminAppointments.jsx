@@ -1,7 +1,7 @@
 // src/pages/admin/AdminAppointments.jsx
 import React, { useEffect, useState } from "react";
 import { Calendar } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/Card";
 
 export default function AdminAppointments() {
   const [appointments, setAppointments] = useState([]);
