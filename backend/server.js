@@ -3,23 +3,28 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 
-// ✅ Correct imports (adjust based on your structure)
-import authRoutes from "../backend/src/routes/auth.js";
-import adminRoutes from "../backend/src/routes/admin.js";
-import teacherRoutes from "../backend/src/routes/teacher.js";
-import studentRoutes from "../backend/src/routes/student.js";
-import appointmentRoutes from "../backend/src/routes/appointment.js";
-
+// ✅ Load environment variables
 dotenv.config();
 
 const app = express();
+
+// ✅ Middleware
 app.use(express.json());
 
-// ✅ CORS setup
+// ✅ CORS setup (allow frontend hosted on Vercel)
 app.use(
- app.use(cors({ origin: "https://stu-teacher-kmq2.vercel.app", credentials: true }));
-
+  cors({
+    origin: "https://stu-teacher-kmq2.vercel.app", // your deployed frontend URL
+    credentials: true,
+  })
 );
+
+// ✅ Import routes (update paths if needed)
+import authRoutes from "./src/routes/auth.js";
+import adminRoutes from "./src/routes/admin.js";
+import teacherRoutes from "./src/routes/teacher.js";
+import studentRoutes from "./src/routes/student.js";
+import appointmentRoutes from "./src/routes/appointment.js";
 
 // ✅ Mount routes
 app.use("/api/auth", authRoutes);
@@ -33,14 +38,14 @@ app.get("/", (req, res) => {
   res.send("Server running successfully 🚀");
 });
 
-// ✅ MongoDB connection
+// ✅ MongoDB Atlas connection
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
+  .then(() => console.log("✅ MongoDB Atlas connected successfully"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// ✅ Local server
+// ✅ Start server
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 
 export default app;
